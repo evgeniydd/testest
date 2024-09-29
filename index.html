@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анимированная Маска</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .image-container {
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      mask: url(#mask);
+      -webkit-mask: url(#mask);
+    }
+
+    svg {
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-container">
+    <!-- Маска скрыта, чтобы не влиять на изображение -->
+    <svg>
+      <defs>
+        <mask id="mask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+          <!-- Преобразуем координаты пути в относительные единицы -->
+          <path id="animatedPath" fill="white"
+                d="M0 0.973V0.561C0 0.547 0.012 0.535 0.027 0.535H0.495C0.511 0.535 0.522 0.523 0.522 0.508V0.027C0.522 0.012 0.533 0 0.548 0H0.973C0.988 0 1 0.012 1 0.027V0.805C1 0.82 0.988 0.832 0.973 0.832H0.366C0.351 0.832 0.34 0.844 0.34 0.858V0.973C0.34 0.989 0.328 1 0.313 1H0.027C0.012 1 0 0.989 0 0.973Z">
+          </path>
+        </mask>
+      </defs>
+    </svg>
+
+    <!-- Изображение с примененной маской -->
+    <img src="images/dog.png" alt="Анимированное изображение">
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script>
+    anime({
+      targets: '#animatedPath',
+      d: [
+        {
+          value: 'M0 0.973V0.561C0 0.547 0.012 0.535 0.027 0.535H0.104C0.119 0.535 0.13 0.523 0.13 0.508V0.027C0.13 0.012 0.141 0 0.156 0H0.973C0.988 0 1 0.012 1 0.027V0.805C1 0.82 0.988 0.832 0.973 0.832H0.746C0.731 0.832 0.72 0.844 0.72 0.858V0.973C0.72 0.989 0.708 1 0.693 1H0.027C0.012 1 0 0.989 0 0.973Z'
+        }
+      ],
+      easing: 'easeInOutQuad',
+      duration: 2000,
+      loop: false,
+      direction: 'alternate'
+    });
+  </script>
+</body>
+</html>
